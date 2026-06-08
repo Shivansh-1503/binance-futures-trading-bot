@@ -1,40 +1,35 @@
-import typer
-
+import argparse
 from bot.orders import place_order
-from bot.validators import validate_order
-
-app = typer.Typer()
 
 
-@app.command()
-def trade(
-    symbol: str,
-    side: str,
-    order_type: str,
-    quantity: float,
-    price: float = None
-):
+def trade():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("symbol")
+    parser.add_argument("side")
+    parser.add_argument("order_type")
+    parser.add_argument("quantity", type=float)
+    parser.add_argument("--price", type=float)
+
+    args = parser.parse_args()
 
     try:
-
-        validate_order(order_type, price)
-
         result = place_order(
-            symbol,
-            side,
-            order_type,
-            quantity,
-            price
+            symbol=args.symbol,
+            side=args.side,
+            order_type=args.order_type,
+            quantity=args.quantity,
+            price=args.price
         )
 
-        print("\nSUCCESS")
+        print("\nORDER SUCCESS")
         print(result)
 
     except Exception as e:
-
         print("\nFAILED")
         print(str(e))
 
 
 if __name__ == "__main__":
-    app()
+    trade()
