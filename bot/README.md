@@ -51,6 +51,10 @@ Limit Order:
 
 python cli.py BTCUSDT SELL LIMIT 0.001 --price 90000
 
+Example:
+
+python cli.py BTCUSDT BUY MARKET 0.001
+python cli.py BTCUSDT BUY LIMIT 0.001 --price 65000
 ## Logs
 
 Logs are stored inside:
